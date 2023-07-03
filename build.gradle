@@ -4,6 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'org.hibernate.orm' version '6.2.5.Final'
 	id 'org.graalvm.buildtools.native' version '0.9.23'
+	id 'org.flywaydb.flyway' version '8.5.13'
 }
 
 group = 'com.example'
@@ -19,6 +20,16 @@ configurations {
 	}
 }
 
+flyway {
+	url = 'jdbc:h2:mem:trackerdb'
+	user = 'sa'
+	password = ''
+	schemas = ['Public']
+	locations = ['classpath:db/migration']
+	baselineOnMigrate = true
+
+}
+
 repositories {
 	mavenCentral()
 }
@@ -30,6 +41,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+	runtimeOnly 'com.h2database:h2'
 	implementation 'org.flywaydb:flyway-core'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

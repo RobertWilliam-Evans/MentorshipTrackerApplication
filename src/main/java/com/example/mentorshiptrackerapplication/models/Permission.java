@@ -1,17 +1,15 @@
-package com.example.mentorshiptrackerapplication;
+package com.example.mentorshiptrackerapplication.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Permission {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String name;
 
@@ -20,11 +18,11 @@ public class Permission {
     @ManyToMany
     private Set<Role> roles;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
