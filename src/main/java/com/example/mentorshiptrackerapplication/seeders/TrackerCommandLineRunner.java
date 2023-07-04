@@ -49,9 +49,9 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         newPermissions.add(p1);
         newPermissions.add(p2);
 
-        r1.setPermissions(newPermissions);
-        p1.setRoles(newRoles);
-        p2.setRoles(newRoles);
+        roleService.setPermissions(r1, newPermissions);
+        permissionService.setRoles(p1, newRoles);
+        permissionService.setRoles(p2, newRoles);
 
 
 
