@@ -1,10 +1,11 @@
-package com.example.mentorshiptrackerapplication;
+package com.example.mentorshiptrackerapplication.seeders;
 
 import com.example.mentorshiptrackerapplication.jpa.PermissionRepository;
 import com.example.mentorshiptrackerapplication.jpa.RoleRepository;
 import com.example.mentorshiptrackerapplication.jpa.UserRepository;
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
+import com.example.mentorshiptrackerapplication.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -52,9 +53,12 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         p1.setRoles(newRoles);
         p2.setRoles(newRoles);
 
+//        User admin = new User("Robby", "Robert Evans", "admin@gmail.com", "password123" );
+//        admin.setRole(r1);
+//        userRepository.save(admin);
 
-        System.out.println(permissionRepository.findByName("Manage Mentorship"));
-        System.out.println(roleRepository.findByName("Administrator"));
+
+
 
 
 

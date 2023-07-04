@@ -21,9 +21,9 @@ configurations {
 }
 
 flyway {
-	url = 'jdbc:h2:mem:trackerdb'
-	user = 'sa'
-	password = ''
+	url = 'jdbc:postgresql://localhost:5432/postgres'
+	user = 'trackerdb'
+	password = 'trackerdb'
 	schemas = ['Public']
 	locations = ['classpath:db/migration']
 	baselineOnMigrate = true
@@ -41,6 +41,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.postgresql:postgresql:42.3.1'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 	runtimeOnly 'com.h2database:h2'
 	implementation 'org.flywaydb:flyway-core'

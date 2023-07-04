@@ -37,6 +37,14 @@ public class User {
 
     }
 
+    public User(String userName, String firstName, String email, String password){
+        this.userName = userName;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+
+    }
+
     public UUID getId() {
         return id;
     }
