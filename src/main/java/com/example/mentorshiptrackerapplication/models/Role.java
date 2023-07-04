@@ -12,11 +12,21 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column
     private String name;
-
+    @Column
     private String description;
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     private Set<Permission> permissions;
+
+    public Role(){
+
+    }
+
+    public Role(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
 
     public UUID getId() {
         return id;
@@ -56,7 +66,6 @@ public class Role {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", permissions=" + permissions +
                 '}';
     }
 }

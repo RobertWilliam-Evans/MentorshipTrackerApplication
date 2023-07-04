@@ -9,13 +9,28 @@ import java.util.UUID;
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "ID")
     private UUID id;
 
+    @Column(name = "Name")
     private String name;
-
+    @Column(name = "Description")
     private String description;
 
+    public Permission(){}
+
+    public Permission(String name, String description){
+        this.name = name;
+        this.description = description;
+
+    }
+
     @ManyToMany
+    @JoinTable(
+            name = "Role_Permission",
+            joinColumns = @JoinColumn(name = "permission_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
 
     public UUID getId() {
@@ -40,6 +55,14 @@ public class Permission {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

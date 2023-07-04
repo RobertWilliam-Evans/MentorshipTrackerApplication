@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class User {
@@ -48,7 +50,10 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if (validateFirstName(firstName)){
+            this.firstName = firstName;
+        }
+        System.out.println("Error");
     }
 
     public String getUserName() {
@@ -56,15 +61,21 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
-    }
+        if (validateUserName(userName)){
+            this.userName = userName;
+        }
+        System.out.println("Error");
 
+    }
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (validateEmail(email)){
+            this.email = email;
+        }
+        System.out.println("Error");
     }
 
     public String getPassword() {
@@ -102,5 +113,32 @@ public class User {
                 ", birtDate=" + birtDate +
                 ", role=" + role +
                 '}';
+    }
+
+    public boolean validateEmail(String email){
+        Pattern pattern = Pattern.compile(
+                "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*" +
+                        "@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)" +
+                        "*(\\\\.[A-Za-z]{2,})$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+
+    }
+
+    public boolean validateUserName(String userName){
+        Pattern pattern = Pattern.compile(
+                "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9])" +
+                        "{3,18}[a-zA-Z0-9]$");
+        Matcher matcher = pattern.matcher(userName);
+        return matcher.matches();
+
+    }
+
+    public boolean validateFirstName(String firstName){
+        Pattern pattern = Pattern.compile(
+                "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$");
+        Matcher matcher = pattern.matcher(firstName);
+        return matcher.matches();
+
     }
 }
