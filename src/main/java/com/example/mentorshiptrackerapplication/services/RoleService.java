@@ -40,7 +40,6 @@ public class RoleService {
 
         Role roleInDB = roleRepository.findByName(roleName).get(0);
         roleInDB.setPermissions(permissions);
-        System.out.println(roleInDB.getPermissions());
         return roleRepository.save(roleInDB);
     }
 }

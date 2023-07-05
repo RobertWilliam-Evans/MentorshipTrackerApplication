@@ -21,9 +21,9 @@ configurations {
 }
 
 flyway {
-	url = 'jdbc:postgresql://localhost:5432/postgres'
-	user = 'trackerdb'
-	password = 'trackerdb'
+	url = System.getenv('db_url')
+	user = System.getenv('db_username')
+	password = System.getenv('db_password')
 	schemas = ['Public']
 	locations = ['classpath:db/migration']
 	baselineOnMigrate = true

@@ -37,7 +37,6 @@ public class PermissionService {
 
         Permission permissionInDB = permissionRepository.findByName(permissionName).get(0);
         permissionInDB.setRoles(roles);
-        System.out.println(permissionInDB.getRoles());
         return permissionRepository.save(permissionInDB);
     }
 
