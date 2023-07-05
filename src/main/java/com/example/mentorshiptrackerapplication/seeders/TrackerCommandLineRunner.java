@@ -6,7 +6,8 @@ import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
 import com.example.mentorshiptrackerapplication.services.PermissionService;
 import com.example.mentorshiptrackerapplication.services.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.mentorshiptrackerapplication.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +15,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class TrackerCommandLineRunner implements CommandLineRunner {
 
-    @Autowired
-    private PermissionService permissionService;
 
-    @Autowired
-    private RoleService roleService;
+    private final PermissionService permissionService;
+
+    private final RoleService roleService;
+
+    private final UserService userService;
 
 
     @Override
@@ -36,7 +39,7 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         Role r1 = new Role("Administrator", "Perform all Actions");
         Role r2 = new Role("Mentorship manager", "Perform mentorship associated CRUD actions");
 
-        Role createdRole1 = roleService.createRole(r1);
+        Role createdRole1 =roleService.createRole(r1);
         Role createdRole2 = roleService.createRole(r2);
 
 
@@ -52,6 +55,12 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         roleService.setPermissions(r1, newPermissions);
         permissionService.setRoles(p1, newRoles);
         permissionService.setRoles(p2, newRoles);
+
+//      Seeding User
+        User user = new User("admin", "admin", "admin@gmail.com", "adminpassword123");
+        User createdUser = userService.createUser(user);
+        userService.setUserRole(createdUser, createdRole1);
+
 
     }
 }

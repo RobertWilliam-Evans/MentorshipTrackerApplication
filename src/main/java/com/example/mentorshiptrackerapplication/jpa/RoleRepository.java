@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Integer>{
 
-    List<Role> findByName(String name);
+    List<Role> findByNameIgnoreCase(String name);
 
     boolean existsRoleByName(String name);
 }

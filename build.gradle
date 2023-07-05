@@ -21,9 +21,9 @@ configurations {
 }
 
 flyway {
-	url = System.getenv('db_url')
-	user = System.getenv('db_username')
-	password = System.getenv('db_password')
+	url = project.properties["db_url"]
+	user = project.properties["db_username"]
+	password = project.properties["db_password"]
 	schemas = ['Public']
 	locations = ['classpath:db/migration']
 	baselineOnMigrate = true
