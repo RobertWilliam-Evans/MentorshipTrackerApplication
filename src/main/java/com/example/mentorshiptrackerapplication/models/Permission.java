@@ -9,12 +9,12 @@ import java.util.UUID;
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "ID")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
-    @Column(name = "Description")
+    @Column(name = "description")
     private String description;
 
     public Permission(){}
@@ -25,7 +25,7 @@ public class Permission {
 
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "Role_Permission",
             joinColumns = @JoinColumn(name = "permission_id"),

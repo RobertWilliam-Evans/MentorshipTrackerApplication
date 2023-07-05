@@ -1,5 +1,6 @@
 package com.example.mentorshiptrackerapplication.services;
 
+import com.example.mentorshiptrackerapplication.jpa.PermissionRepository;
 import com.example.mentorshiptrackerapplication.jpa.RoleRepository;
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
@@ -14,17 +15,32 @@ import java.util.Set;
 public class RoleService {
 
     private final RoleRepository roleRepository;
+    private final PermissionRepository permissionRepository;
 
     public Role createRole(Role role){
-        return roleRepository.save(role);
+
+        if(roleRepository.existsRoleByName(role.getName())){
+            Role roleInDB = roleRepository.findByName(role.getName()).get(0);
+            System.out.println("Role exists" + " " + roleInDB);
+            return roleInDB;
+        }else{
+            return roleRepository.save(role);
+        }
+
     }
 
     public List<Role> getAllRole() {
         return roleRepository.findAll();
     }
 
-    public Role setPermissions(Role role, Set<Permission> permission){
-        role.setPermissions(permission);
-        return roleRepository.save(role);
+
+
+    public Role setPermissions(Role role, Set<Permission> permissions){
+        String roleName = role.getName();
+
+        Role roleInDB = roleRepository.findByName(roleName).get(0);
+        roleInDB.setPermissions(permissions);
+        System.out.println(roleInDB.getPermissions());
+        return roleRepository.save(roleInDB);
     }
 }

@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface PermissionRepository extends JpaRepository<Permission, Integer> {
     List<Permission> findByName(String name);
+
+
+    boolean existsPermissionsByName(String name);
 }

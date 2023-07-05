@@ -1,8 +1,6 @@
 package com.example.mentorshiptrackerapplication.seeders;
 
-import com.example.mentorshiptrackerapplication.jpa.PermissionRepository;
-import com.example.mentorshiptrackerapplication.jpa.RoleRepository;
-import com.example.mentorshiptrackerapplication.jpa.UserRepository;
+
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
@@ -31,42 +29,29 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 //       Creating permissions using the permission service
         Permission p1 = new Permission("Manage Mentorship", "Create, view, update and delete on mentorship");
         Permission p2 = new Permission("View Mentorship", "View mentorship only");
-        permissionService.createPermission(p1);
-        permissionService.createPermission(p2);
+        Permission createdPermission1 = permissionService.createPermission(p1);
+        Permission createdPermission2 = permissionService.createPermission(p2);
 
 //      Creating roles using the role service
         Role r1 = new Role("Administrator", "Perform all Actions");
         Role r2 = new Role("Mentorship manager", "Perform mentorship associated CRUD actions");
-        roleService.createRole(r1);
-        roleService.createRole(r2);
+
+        Role createdRole1 = roleService.createRole(r1);
+        Role createdRole2 = roleService.createRole(r2);
 
 
 //      Updating roles and permissions
         Set<Role> newRoles = new HashSet<>();
         Set<Permission> newPermissions = new HashSet<>();
+//
+        newRoles.add(createdRole2);
 
-        newRoles.add(r2);
-        newPermissions.add(p1);
-        newPermissions.add(p2);
 
+        newPermissions.add(createdPermission1);
+        newPermissions.add(createdPermission2);
         roleService.setPermissions(r1, newPermissions);
         permissionService.setRoles(p1, newRoles);
         permissionService.setRoles(p2, newRoles);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

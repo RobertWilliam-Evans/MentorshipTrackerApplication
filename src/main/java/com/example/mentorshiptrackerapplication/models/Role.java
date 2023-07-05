@@ -10,13 +10,21 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name="id")
     private UUID id;
 
-    @Column
+    @Column(name="name")
     private String name;
-    @Column
+    @Column(name="description")
     private String description;
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            fetch = FetchType.EAGER
+
+    )
     private Set<Permission> permissions;
 
     public Role(){

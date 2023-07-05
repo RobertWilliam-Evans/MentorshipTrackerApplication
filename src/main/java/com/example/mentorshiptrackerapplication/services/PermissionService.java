@@ -16,15 +16,30 @@ public class PermissionService {
     private final PermissionRepository permissionRepository;
 
     public Permission createPermission(Permission permission){
-        return permissionRepository.save(permission);
+
+        if(permissionRepository.existsPermissionsByName(permission.getName())){
+            Permission permissionInDB = permissionRepository.findByName(permission.getName()).get(0);
+            System.out.println("Permission exists" + " " + permissionInDB);
+            return permissionInDB;
+        }else{
+            return permissionRepository.save(permission);
+        }
+
     }
+
 
     public List<Permission> getAllPermissions() {
         return permissionRepository.findAll();
     }
 
     public Permission setRoles(Permission permission, Set<Role> roles){
-        permission.setRoles(roles);
-        return permissionRepository.save(permission);
+        String permissionName = permission.getName();
+
+        Permission permissionInDB = permissionRepository.findByName(permissionName).get(0);
+        permissionInDB.setRoles(roles);
+        System.out.println(permissionInDB.getRoles());
+        return permissionRepository.save(permissionInDB);
     }
+
+
 }
