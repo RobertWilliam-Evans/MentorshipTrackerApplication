@@ -18,15 +18,11 @@ public class RoleService {
     private final RoleRepository roleRepository;
 
     public Role createRole(Role role){
-
         if(roleRepository.existsRoleByName(role.getName())){
-            Role roleInDB = roleRepository.findByNameIgnoreCase(role.getName()).get(0);
-            System.err.println("Role exists" + " " + roleInDB);
-            return roleInDB;
+            return roleRepository.findByNameIgnoreCase(role.getName());
         }else{
             return roleRepository.save(role);
         }
-
     }
 
     public List<Role> getAllRole() {
@@ -37,8 +33,7 @@ public class RoleService {
 
     public Role setPermissions(Role role, Set<Permission> permissions){
         String roleName = role.getName();
-
-        Role roleInDB = roleRepository.findByNameIgnoreCase(roleName).get(0);
+        Role roleInDB = roleRepository.findByNameIgnoreCase(roleName);
         roleInDB.setPermissions(permissions);
         return roleRepository.save(roleInDB);
     }

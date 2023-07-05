@@ -19,9 +19,7 @@ public class PermissionService {
     public Permission createPermission(Permission permission){
 
         if(permissionRepository.existsPermissionsByName(permission.getName())){
-            Permission permissionInDB = permissionRepository.findByNameIgnoreCase(permission.getName()).get(0);
-            System.out.println("Permission exists" + " " + permissionInDB);
-            return permissionInDB;
+            return permissionRepository.findByNameIgnoreCase(permission.getName());
         }else{
             return permissionRepository.save(permission);
         }
@@ -36,7 +34,7 @@ public class PermissionService {
     public Permission setRoles(Permission permission, Set<Role> roles){
         String permissionName = permission.getName();
 
-        Permission permissionInDB = permissionRepository.findByNameIgnoreCase(permissionName).get(0);
+        Permission permissionInDB = permissionRepository.findByNameIgnoreCase(permissionName);
         permissionInDB.setRoles(roles);
         return permissionRepository.save(permissionInDB);
     }
