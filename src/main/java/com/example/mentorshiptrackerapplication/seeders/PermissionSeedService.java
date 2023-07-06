@@ -1,10 +1,8 @@
-package com.example.mentorshiptrackerapplication.services;
+package com.example.mentorshiptrackerapplication.seeders;
 
 import com.example.mentorshiptrackerapplication.jpa.PermissionRepository;
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +11,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class PermissionService {
+public class PermissionSeedService {
     private final PermissionRepository permissionRepository;
 
     public Permission createPermission(Permission permission){

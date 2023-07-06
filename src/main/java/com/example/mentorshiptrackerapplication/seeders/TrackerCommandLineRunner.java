@@ -4,9 +4,6 @@ package com.example.mentorshiptrackerapplication.seeders;
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
-import com.example.mentorshiptrackerapplication.services.PermissionService;
-import com.example.mentorshiptrackerapplication.services.RoleService;
-import com.example.mentorshiptrackerapplication.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,11 +16,11 @@ import java.util.Set;
 public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
-    private final PermissionService permissionService;
+    private final PermissionSeedService permissionSeedService;
 
-    private final RoleService roleService;
+    private final RoleSeedService roleSeedService;
 
-    private final UserService userService;
+    private final UserSeedService userSeedService;
 
 
     @Override
@@ -32,15 +29,15 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 //       Creating permissions using the permission service
         Permission p1 = new Permission("Manage Mentorship", "Create, view, update and delete on mentorship");
         Permission p2 = new Permission("View Mentorship", "View mentorship only");
-        Permission createdPermission1 = permissionService.createPermission(p1);
-        Permission createdPermission2 = permissionService.createPermission(p2);
+        Permission createdPermission1 = permissionSeedService.createPermission(p1);
+        Permission createdPermission2 = permissionSeedService.createPermission(p2);
 
 //      Creating roles using the role service
         Role r1 = new Role("Administrator", "Perform all Actions");
         Role r2 = new Role("Mentorship manager", "Perform mentorship associated CRUD actions");
 
-        Role createdRole1 =roleService.createRole(r1);
-        Role createdRole2 = roleService.createRole(r2);
+        Role createdRole1 =roleSeedService.createRole(r1);
+        Role createdRole2 = roleSeedService.createRole(r2);
 
 
 //      Updating roles and permissions
@@ -52,14 +49,14 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
         newPermissions.add(createdPermission1);
         newPermissions.add(createdPermission2);
-        roleService.setPermissions(r1, newPermissions);
-        permissionService.setRoles(p1, newRoles);
-        permissionService.setRoles(p2, newRoles);
+        roleSeedService.setPermissions(r1, newPermissions);
+        permissionSeedService.setRoles(p1, newRoles);
+        permissionSeedService.setRoles(p2, newRoles);
 
 //      Seeding User
         User user = new User("admin", "admin", "admin@gmail.com", "adminpassword123");
-        User createdUser = userService.createUser(user);
-        userService.setUserRole(createdUser, createdRole1);
+        User createdUser = userSeedService.createUser(user);
+        userSeedService.setUserRole(createdUser, createdRole1);
 
 
     }

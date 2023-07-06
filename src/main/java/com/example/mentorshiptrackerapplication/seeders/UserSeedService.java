@@ -1,4 +1,4 @@
-package com.example.mentorshiptrackerapplication.services;
+package com.example.mentorshiptrackerapplication.seeders;
 
 import com.example.mentorshiptrackerapplication.jpa.UserRepository;
 import com.example.mentorshiptrackerapplication.models.Role;
@@ -6,14 +6,10 @@ import com.example.mentorshiptrackerapplication.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
-
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserSeedService {
     private final UserRepository userRepository;
-
-
 
 
     public User createUser(User user){
