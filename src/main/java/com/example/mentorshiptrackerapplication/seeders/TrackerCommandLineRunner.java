@@ -5,9 +5,9 @@ import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsEx
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
-import com.example.mentorshiptrackerapplication.services.PermissionService;
-import com.example.mentorshiptrackerapplication.services.RoleService;
-import com.example.mentorshiptrackerapplication.services.UserService;
+import com.example.mentorshiptrackerapplication.services.PermissionServiceImpl;
+import com.example.mentorshiptrackerapplication.services.RoleServiceImpl;
+import com.example.mentorshiptrackerapplication.services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,11 +20,11 @@ import java.util.Set;
 public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
-    private final PermissionService permissionService;
+    private final PermissionServiceImpl permissionServiceImpl;
 
-    private final RoleService roleService;
+    private final RoleServiceImpl roleServiceImpl;
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
 
     @Override
@@ -37,17 +37,17 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         Permission createdPermission2;
 
         try {
-             createdPermission1 = permissionService.createPermission(p1);
+             createdPermission1 = permissionServiceImpl.createPermission(p1);
 
         } catch(EntityAlreadyExistsException e){
-             createdPermission1 = permissionService.findPermission(p1);
+             createdPermission1 = permissionServiceImpl.findPermission(p1);
         }
 
         try {
-            createdPermission2 = permissionService.createPermission(p2);
+            createdPermission2 = permissionServiceImpl.createPermission(p2);
 
         } catch(EntityAlreadyExistsException e){
-            createdPermission2 = permissionService.findPermission(p2);
+            createdPermission2 = permissionServiceImpl.findPermission(p2);
         }
 
 
@@ -59,17 +59,17 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         Role createdRole2;
 
         try {
-            createdRole1 = roleService.createRole(r1);
+            createdRole1 = roleServiceImpl.createRole(r1);
 
         } catch(EntityAlreadyExistsException e){
-            createdRole1 = roleService.findRole(r1);
+            createdRole1 = roleServiceImpl.findRole(r1);
         }
 
         try {
-            createdRole2 = roleService.createRole(r2);
+            createdRole2 = roleServiceImpl.createRole(r2);
 
         } catch(EntityAlreadyExistsException e){
-            createdRole2 = roleService.findRole(r2);
+            createdRole2 = roleServiceImpl.findRole(r2);
         }
 
 
@@ -82,9 +82,9 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
         newPermissions.add(createdPermission1);
         newPermissions.add(createdPermission2);
-        roleService.setPermissions(r1, newPermissions);
-        permissionService.setRoles(p1, newRoles);
-        permissionService.setRoles(p2, newRoles);
+        roleServiceImpl.setPermissions(r1, newPermissions);
+        permissionServiceImpl.setRoles(p1, newRoles);
+        permissionServiceImpl.setRoles(p2, newRoles);
 
 
 
@@ -93,12 +93,12 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         User createdUser;
 
         try {
-            createdUser = userService.createUser(user);
+            createdUser = userServiceImpl.createUser(user);
 
         } catch(EntityAlreadyExistsException e){
-            createdUser = userService.findUserByEmail(user.getEmail());
+            createdUser = userServiceImpl.findUserByEmail(user.getEmail());
         }
-        userService.setUserRole(createdUser, createdRole1);
+        userServiceImpl.setUserRole(createdUser, createdRole1);
 
 
     }
