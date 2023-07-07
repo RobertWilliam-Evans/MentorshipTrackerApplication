@@ -1,9 +1,13 @@
 package com.example.mentorshiptrackerapplication.seeders;
 
 
+import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
+import com.example.mentorshiptrackerapplication.services.PermissionService;
+import com.example.mentorshiptrackerapplication.services.RoleService;
+import com.example.mentorshiptrackerapplication.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,11 +20,11 @@ import java.util.Set;
 public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
-    private final PermissionSeedService permissionSeedService;
+    private final PermissionService permissionService;
 
-    private final RoleSeedService roleSeedService;
+    private final RoleService roleService;
 
-    private final UserSeedService userSeedService;
+    private final UserService userService;
 
 
     @Override
@@ -29,15 +33,44 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 //       Creating permissions using the permission service
         Permission p1 = new Permission("Manage Mentorship", "Create, view, update and delete on mentorship");
         Permission p2 = new Permission("View Mentorship", "View mentorship only");
-        Permission createdPermission1 = permissionSeedService.createPermission(p1);
-        Permission createdPermission2 = permissionSeedService.createPermission(p2);
+        Permission createdPermission1;
+        Permission createdPermission2;
+
+        try {
+             createdPermission1 = permissionService.createPermission(p1);
+
+        } catch(EntityAlreadyExistsException e){
+             createdPermission1 = permissionService.findPermission(p1);
+        }
+
+        try {
+            createdPermission2 = permissionService.createPermission(p2);
+
+        } catch(EntityAlreadyExistsException e){
+            createdPermission2 = permissionService.findPermission(p2);
+        }
+
 
 //      Creating roles using the role service
         Role r1 = new Role("Administrator", "Perform all Actions");
         Role r2 = new Role("Mentorship manager", "Perform mentorship associated CRUD actions");
 
-        Role createdRole1 =roleSeedService.createRole(r1);
-        Role createdRole2 = roleSeedService.createRole(r2);
+        Role createdRole1;
+        Role createdRole2;
+
+        try {
+            createdRole1 = roleService.createRole(r1);
+
+        } catch(EntityAlreadyExistsException e){
+            createdRole1 = roleService.findRole(r1);
+        }
+
+        try {
+            createdRole2 = roleService.createRole(r2);
+
+        } catch(EntityAlreadyExistsException e){
+            createdRole2 = roleService.findRole(r2);
+        }
 
 
 //      Updating roles and permissions
@@ -49,14 +82,23 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
         newPermissions.add(createdPermission1);
         newPermissions.add(createdPermission2);
-        roleSeedService.setPermissions(r1, newPermissions);
-        permissionSeedService.setRoles(p1, newRoles);
-        permissionSeedService.setRoles(p2, newRoles);
+        roleService.setPermissions(r1, newPermissions);
+        permissionService.setRoles(p1, newRoles);
+        permissionService.setRoles(p2, newRoles);
+
+
 
 //      Seeding User
         User user = new User("admin", "admin", "admin@gmail.com", "adminpassword123");
-        User createdUser = userSeedService.createUser(user);
-        userSeedService.setUserRole(createdUser, createdRole1);
+        User createdUser;
+
+        try {
+            createdUser = userService.createUser(user);
+
+        } catch(EntityAlreadyExistsException e){
+            createdUser = userService.findUserByEmail(user.getEmail());
+        }
+        userService.setUserRole(createdUser, createdRole1);
 
 
     }
