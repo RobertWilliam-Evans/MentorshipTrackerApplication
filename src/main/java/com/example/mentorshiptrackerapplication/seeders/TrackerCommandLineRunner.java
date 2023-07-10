@@ -1,6 +1,9 @@
 package com.example.mentorshiptrackerapplication.seeders;
 
 
+import com.example.mentorshiptrackerapplication.dto.PermissionDTO;
+import com.example.mentorshiptrackerapplication.dto.RoleDTO;
+import com.example.mentorshiptrackerapplication.dto.UserDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
@@ -8,12 +11,15 @@ import com.example.mentorshiptrackerapplication.models.User;
 import com.example.mentorshiptrackerapplication.services.PermissionServiceImpl;
 import com.example.mentorshiptrackerapplication.services.RoleServiceImpl;
 import com.example.mentorshiptrackerapplication.services.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.example.mentorshiptrackerapplication.constants.Constants.ADMIN;
 
 @Component
 @RequiredArgsConstructor
@@ -26,62 +32,62 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
     private final UserServiceImpl userServiceImpl;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Override
     public void run(String... args) throws Exception{
 
 //       Creating permissions using the permission service
-        Permission p1 = new Permission("Manage Mentorship", "Create, view, update and delete on mentorship");
-        Permission p2 = new Permission("View Mentorship", "View mentorship only");
-        Permission createdPermission1;
-        Permission createdPermission2;
+        PermissionDTO p1 = new PermissionDTO("Manage Mentorship", "Create, view, update and delete on mentorship");
+        PermissionDTO p2 = new PermissionDTO("View Mentorship", "View mentorship only");
+
 
         try {
-             createdPermission1 = permissionServiceImpl.createPermission(p1);
+             permissionServiceImpl.createPermission(p1);
 
         } catch(EntityAlreadyExistsException e){
-             createdPermission1 = permissionServiceImpl.findPermission(p1);
+             permissionServiceImpl.findPermission(p1.getName());
         }
 
         try {
-            createdPermission2 = permissionServiceImpl.createPermission(p2);
+            permissionServiceImpl.createPermission(p2);
 
         } catch(EntityAlreadyExistsException e){
-            createdPermission2 = permissionServiceImpl.findPermission(p2);
+            permissionServiceImpl.findPermission(p2.getName());
         }
 
 
 //      Creating roles using the role service
-        Role r1 = new Role("Administrator", "Perform all Actions");
-        Role r2 = new Role("Mentorship manager", "Perform mentorship associated CRUD actions");
-
-        Role createdRole1;
-        Role createdRole2;
+        RoleDTO r1 = new RoleDTO("Administrator", "Perform all Actions");
+        RoleDTO r2 = new RoleDTO("Mentorship manager", "Perform mentorship associated CRUD actions");
 
         try {
-            createdRole1 = roleServiceImpl.createRole(r1);
+            roleServiceImpl.createRole(r1);
 
         } catch(EntityAlreadyExistsException e){
-            createdRole1 = roleServiceImpl.findRole(r1);
+            roleServiceImpl.findRole(r1.getName());
         }
 
         try {
-            createdRole2 = roleServiceImpl.createRole(r2);
+            roleServiceImpl.createRole(r2);
 
         } catch(EntityAlreadyExistsException e){
-            createdRole2 = roleServiceImpl.findRole(r2);
+            roleServiceImpl.findRole(r2.getName());
         }
+
+
 
 
 //      Updating roles and permissions
-        Set<Role> newRoles = new HashSet<>();
-        Set<Permission> newPermissions = new HashSet<>();
+        Set<String> newRoles = new HashSet<>();
+        Set<String> newPermissions = new HashSet<>();
 //
-        newRoles.add(createdRole2);
+        newRoles.add(r2.getName());
 
 
-        newPermissions.add(createdPermission1);
-        newPermissions.add(createdPermission2);
+        newPermissions.add(p2.getName());
+        newPermissions.add(p2.getName());
         roleServiceImpl.setPermissions(r1, newPermissions);
         permissionServiceImpl.setRoles(p1, newRoles);
         permissionServiceImpl.setRoles(p2, newRoles);
@@ -89,8 +95,8 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
 //      Seeding User
-        User user = new User("admin", "admin", "admin@gmail.com", "adminpassword123");
-        User createdUser;
+        UserDTO user = new UserDTO("admin", "admin", "admin@gmail.com", "adminpassword123");
+        UserDTO createdUser;
 
         try {
             createdUser = userServiceImpl.createUser(user);
@@ -98,7 +104,9 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         } catch(EntityAlreadyExistsException e){
             createdUser = userServiceImpl.findUserByEmail(user.getEmail());
         }
-        userServiceImpl.setUserRole(createdUser, createdRole1);
+
+
+        userServiceImpl.setUserRole(createdUser, r1.getName());
 
 
     }

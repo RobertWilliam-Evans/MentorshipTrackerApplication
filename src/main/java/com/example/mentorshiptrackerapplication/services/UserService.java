@@ -1,12 +1,14 @@
 package com.example.mentorshiptrackerapplication.services;
 
+import com.example.mentorshiptrackerapplication.dto.RoleDTO;
+import com.example.mentorshiptrackerapplication.dto.UserDTO;
 import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
 
 public interface UserService {
-    User createUser(User user);
-    User setUserRole(User user, Role role);
+    UserDTO createUser(UserDTO user);
+    UserDTO setUserRole(UserDTO user, String roleName);
 
-    User findUserByEmail(String email);
+    UserDTO findUserByEmail(String email);
 
 }

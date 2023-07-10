@@ -1,13 +1,12 @@
 package com.example.mentorshiptrackerapplication.services;
+import com.example.mentorshiptrackerapplication.dto.RoleDTO;
 
-import com.example.mentorshiptrackerapplication.models.Permission;
-import com.example.mentorshiptrackerapplication.models.Role;
 
 import java.util.Set;
 
 public interface RoleService {
-    Role createRole(Role role);
-    Role setPermissions(Role role, Set<Permission> permissions);
+    RoleDTO createRole(RoleDTO role);
+    RoleDTO setPermissions(RoleDTO role, Set<String> permissions);
 
-    Role findRole(Role role);
+    RoleDTO findRole(String roleName);
 }
