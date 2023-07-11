@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
     public UserRequestDTO createUser(UserRequestDTO user) throws EntityAlreadyExistsException {
         User convertedUser = objectMapper.convertValue(user, User.class);
         if(userRepository.existsUserByEmail(convertedUser.getEmail())){
-            throw new EntityAlreadyExistsException("User Does Not Exist");
+            throw new EntityAlreadyExistsException("User Already Exists");
         }
         User user1 = userRepository.save(convertedUser);
         return objectMapper.convertValue(user1, UserRequestDTO.class);

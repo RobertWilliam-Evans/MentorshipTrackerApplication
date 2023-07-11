@@ -19,10 +19,10 @@ public class RoleDTO {
 
     private UUID id;
 
-    @NotBlank
+    @NotBlank(message = "field is required")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "field is required")
     private String description;
     private Set<PermissionDTO> permissions;
 

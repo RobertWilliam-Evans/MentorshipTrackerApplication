@@ -17,10 +17,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PermissionDTO {
     private UUID id;
-    @NotBlank
+    @NotBlank(message = "field is required")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "field is required")
     private String description;
 
     public PermissionDTO(String name, String description) {
