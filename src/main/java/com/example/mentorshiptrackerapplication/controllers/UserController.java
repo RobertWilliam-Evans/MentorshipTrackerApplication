@@ -21,7 +21,7 @@ import static com.example.mentorshiptrackerapplication.constants.Constants.ADMIN
 @RequiredArgsConstructor
 @RestController
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
 
     @PostMapping("api/admin")

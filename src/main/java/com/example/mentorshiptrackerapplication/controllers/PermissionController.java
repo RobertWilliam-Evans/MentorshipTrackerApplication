@@ -2,6 +2,7 @@ package com.example.mentorshiptrackerapplication.controllers;
 
 import com.example.mentorshiptrackerapplication.dto.PermissionDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
+import com.example.mentorshiptrackerapplication.services.PermissionService;
 import com.example.mentorshiptrackerapplication.services.PermissionServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class PermissionController {
-    private final PermissionServiceImpl permissionService;
+    private final PermissionService permissionService;
 
     @PostMapping("api/permission")
     public ResponseEntity<PermissionDTO> createPermission(@Valid @RequestBody PermissionDTO permissionDTO) throws EntityAlreadyExistsException {

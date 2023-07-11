@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class RoleController {
-    private final RoleServiceImpl roleService;
+    private final RoleService roleService;
 
     @PostMapping("api/role")
     public ResponseEntity<RoleDTO> createRole(@Valid @RequestBody RoleDTO roleDTO) throws EntityAlreadyExistsException {
