@@ -1,14 +1,11 @@
 package com.example.mentorshiptrackerapplication.services;
 
-import com.example.mentorshiptrackerapplication.dto.RoleDTO;
-import com.example.mentorshiptrackerapplication.dto.UserDTO;
-import com.example.mentorshiptrackerapplication.models.Role;
-import com.example.mentorshiptrackerapplication.models.User;
+import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
 
 public interface UserService {
-    UserDTO createUser(UserDTO user);
-    UserDTO setUserRole(UserDTO user, String roleName);
+    UserRequestDTO createUser(UserRequestDTO user);
+    UserRequestDTO setUserRole(UserRequestDTO user, String roleName);
 
-    UserDTO findUserByEmail(String email);
+    UserRequestDTO findUserByEmail(String email);
 
 }

@@ -24,11 +24,7 @@ import org.slf4j.LoggerFactory;
 public class PermissionServiceImpl implements PermissionService{
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
-
-
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    private static final Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
+    private final ObjectMapper objectMapper;
 
     public PermissionDTO createPermission(PermissionDTO permission) throws EntityAlreadyExistsException {
         Permission convertedPermission = objectMapper.convertValue(permission, Permission.class);

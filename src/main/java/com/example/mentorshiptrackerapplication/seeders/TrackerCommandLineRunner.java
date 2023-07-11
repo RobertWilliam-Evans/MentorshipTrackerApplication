@@ -3,11 +3,8 @@ package com.example.mentorshiptrackerapplication.seeders;
 
 import com.example.mentorshiptrackerapplication.dto.PermissionDTO;
 import com.example.mentorshiptrackerapplication.dto.RoleDTO;
-import com.example.mentorshiptrackerapplication.dto.UserDTO;
+import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
-import com.example.mentorshiptrackerapplication.models.Permission;
-import com.example.mentorshiptrackerapplication.models.Role;
-import com.example.mentorshiptrackerapplication.models.User;
 import com.example.mentorshiptrackerapplication.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.example.mentorshiptrackerapplication.constants.Constants.ADMIN;
 
 @Component
 @RequiredArgsConstructor
@@ -93,8 +88,8 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
 //      Seeding User
-        UserDTO user = new UserDTO("admin", "admin", "admin@gmail.com", "adminpassword123");
-        UserDTO createdUser;
+        UserRequestDTO user = new UserRequestDTO("admin", "admin", "admin@gmail.com", "adminpassword123");
+        UserRequestDTO createdUser;
 
         try {
             createdUser = userService.createUser(user);

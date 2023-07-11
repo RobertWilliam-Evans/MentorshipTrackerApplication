@@ -23,9 +23,7 @@ public class RoleServiceImpl implements RoleService{
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     public RoleDTO createRole(RoleDTO role) throws EntityAlreadyExistsException {
         Role convertedRole = objectMapper.convertValue(role, Role.class);

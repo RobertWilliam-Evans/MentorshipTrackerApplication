@@ -10,14 +10,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("api/")
 public class PermissionController {
     private final PermissionService permissionService;
 
-    @PostMapping("api/permission")
+    @PostMapping("v1/permission")
     public ResponseEntity<PermissionDTO> createPermission(@Valid @RequestBody PermissionDTO permissionDTO) throws EntityAlreadyExistsException {
 
         PermissionDTO savedPermission = permissionService.createPermission(permissionDTO);
