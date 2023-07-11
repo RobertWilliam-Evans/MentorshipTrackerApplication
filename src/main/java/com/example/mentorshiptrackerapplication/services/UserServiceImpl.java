@@ -1,6 +1,7 @@
 package com.example.mentorshiptrackerapplication.services;
 
 import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
+import com.example.mentorshiptrackerapplication.dto.UserResponseDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
 import com.example.mentorshiptrackerapplication.exceptions.EntityDoesNotExistException;
 import com.example.mentorshiptrackerapplication.jpa.UserRepository;
@@ -10,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import com.example.mentorshiptrackerapplication.jpa.RoleRepository;
 import org.springframework.stereotype.Service;
+
+import static com.example.mentorshiptrackerapplication.constants.Constants.ADMIN;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +28,14 @@ public class UserServiceImpl implements UserService{
         }
         User user1 = userRepository.save(convertedUser);
         return objectMapper.convertValue(user1, UserRequestDTO.class);
+
+    }
+
+    public UserResponseDTO createAdmin(UserRequestDTO user) throws EntityAlreadyExistsException {
+        UserRequestDTO userDTO = createUser(user);
+        UserRequestDTO admin = setUserRole(userDTO, ADMIN);
+
+        return objectMapper.convertValue(admin, UserResponseDTO.class);
 
     }
 

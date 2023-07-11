@@ -17,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PermissionDTO {
     private UUID id;
+
     @NotBlank(message = "field is required")
     private String name;
 

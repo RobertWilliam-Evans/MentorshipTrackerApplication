@@ -1,6 +1,9 @@
 package com.example.mentorshiptrackerapplication.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 import java.util.UUID;
@@ -14,6 +17,9 @@ public class Role {
     private UUID id;
 
     @Column(name="name")
+    @NotBlank(message = "field is required")
+    @NotEmpty
+    @NotNull
     private String name;
     @Column(name="description")
     private String description;

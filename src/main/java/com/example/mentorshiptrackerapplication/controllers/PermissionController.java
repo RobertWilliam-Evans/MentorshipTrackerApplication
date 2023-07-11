@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -20,10 +17,9 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @PostMapping("v1/permission")
-    public ResponseEntity<PermissionDTO> createPermission(@Valid @RequestBody PermissionDTO permissionDTO) throws EntityAlreadyExistsException {
-
-        PermissionDTO savedPermission = permissionService.createPermission(permissionDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedPermission);
+    @ResponseStatus(HttpStatus.CREATED)
+    public PermissionDTO createPermission(@Valid @RequestBody PermissionDTO permissionDTO){
+        return permissionService.createPermission(permissionDTO);
     }
 
 

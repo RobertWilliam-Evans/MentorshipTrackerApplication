@@ -2,9 +2,7 @@ package com.example.mentorshiptrackerapplication.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Null;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +18,15 @@ public class RoleDTO {
     private UUID id;
 
     @NotBlank(message = "field is required")
+    @NotEmpty
+    @NotNull
     private String name;
 
     @NotBlank(message = "field is required")
     private String description;
     private Set<PermissionDTO> permissions;
 
-    public RoleDTO(String name, String description) {
+    public RoleDTO(@NotNull String name, @NotNull String description) {
         this.name = name;
         this.description = description;
     }
