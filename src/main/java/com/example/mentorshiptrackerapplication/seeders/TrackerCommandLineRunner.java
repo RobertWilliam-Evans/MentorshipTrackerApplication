@@ -8,9 +8,7 @@ import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsEx
 import com.example.mentorshiptrackerapplication.models.Permission;
 import com.example.mentorshiptrackerapplication.models.Role;
 import com.example.mentorshiptrackerapplication.models.User;
-import com.example.mentorshiptrackerapplication.services.PermissionServiceImpl;
-import com.example.mentorshiptrackerapplication.services.RoleServiceImpl;
-import com.example.mentorshiptrackerapplication.services.UserServiceImpl;
+import com.example.mentorshiptrackerapplication.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -26,11 +24,11 @@ import static com.example.mentorshiptrackerapplication.constants.Constants.ADMIN
 public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
-    private final PermissionServiceImpl permissionServiceImpl;
+    private final PermissionService permissionService;
 
-    private final RoleServiceImpl roleServiceImpl;
+    private final RoleService roleService;
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -44,17 +42,17 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
 
         try {
-             permissionServiceImpl.createPermission(p1);
+             permissionService.createPermission(p1);
 
         } catch(EntityAlreadyExistsException e){
-             permissionServiceImpl.findPermission(p1.getName());
+             permissionService.findPermission(p1.getName());
         }
 
         try {
-            permissionServiceImpl.createPermission(p2);
+            permissionService.createPermission(p2);
 
         } catch(EntityAlreadyExistsException e){
-            permissionServiceImpl.findPermission(p2.getName());
+            permissionService.findPermission(p2.getName());
         }
 
 
@@ -63,17 +61,17 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         RoleDTO r2 = new RoleDTO("Mentorship manager", "Perform mentorship associated CRUD actions");
 
         try {
-            roleServiceImpl.createRole(r1);
+            roleService.createRole(r1);
 
         } catch(EntityAlreadyExistsException e){
-            roleServiceImpl.findRole(r1.getName());
+            roleService.findRole(r1.getName());
         }
 
         try {
-            roleServiceImpl.createRole(r2);
+            roleService.createRole(r2);
 
         } catch(EntityAlreadyExistsException e){
-            roleServiceImpl.findRole(r2.getName());
+            roleService.findRole(r2.getName());
         }
 
 
@@ -88,9 +86,9 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
         newPermissions.add(p2.getName());
         newPermissions.add(p2.getName());
-        roleServiceImpl.setPermissions(r1, newPermissions);
-        permissionServiceImpl.setRoles(p1, newRoles);
-        permissionServiceImpl.setRoles(p2, newRoles);
+        roleService.setPermissions(r1, newPermissions);
+        permissionService.setRoles(p1, newRoles);
+        permissionService.setRoles(p2, newRoles);
 
 
 
@@ -99,14 +97,14 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         UserDTO createdUser;
 
         try {
-            createdUser = userServiceImpl.createUser(user);
+            createdUser = userService.createUser(user);
 
         } catch(EntityAlreadyExistsException e){
-            createdUser = userServiceImpl.findUserByEmail(user.getEmail());
+            createdUser = userService.findUserByEmail(user.getEmail());
         }
 
 
-        userServiceImpl.setUserRole(createdUser, r1.getName());
+        userService.setUserRole(createdUser, r1.getName());
 
 
     }

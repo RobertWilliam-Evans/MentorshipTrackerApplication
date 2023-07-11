@@ -1,8 +1,7 @@
 package com.example.mentorshiptrackerapplication.dto;
 
-import com.example.mentorshiptrackerapplication.models.Role;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,8 @@ public class UserDTO {
     private String firstName;
     private String userName;
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private RoleDTO role;
 
