@@ -43,4 +43,13 @@ public class UserRequestDTO {
 
     }
 
+    public UserRequestDTO(@NotNull String userName, @NotNull String firstName, String email, @NotNull String password, RoleDTO role){
+        this.userName = userName;
+        this.firstName = firstName;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+
+    }
+
 }

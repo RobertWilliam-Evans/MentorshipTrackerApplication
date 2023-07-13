@@ -2,13 +2,26 @@ package com.example.mentorshiptrackerapplication.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
+import static com.example.mentorshiptrackerapplication.constants.Constants.DEFAULT_ROLE;
 
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name ="user_details")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.UUID)
@@ -33,67 +46,43 @@ public class User {
     private Role role;
 
 
-
-    public User(){
-
-    }
-
-    public User(String userName, String firstName, String email, String password){
-        this.userName = userName;
-        this.firstName = firstName;
-        this.email = email;
-        this.password = password;
-
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-
-            this.firstName = firstName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-
-            this.userName = userName;
-
-    }
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-            this.email = email;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        return List.of(new SimpleGrantedAuthority(role.getName()== null ? DEFAULT_ROLE : role.getName()));
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public Role getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override

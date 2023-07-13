@@ -9,6 +9,7 @@ import com.example.mentorshiptrackerapplication.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -24,6 +25,8 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
     private final RoleService roleService;
 
     private final UserService userService;
+
+    private final PasswordEncoder passwordEncoder;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -54,12 +57,12 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 //      Creating roles using the role service
         RoleDTO r1 = new RoleDTO("Administrator", "Perform all Actions");
         RoleDTO r2 = new RoleDTO("Mentorship manager", "Perform mentorship associated CRUD actions");
-
+        RoleDTO createdRole;
         try {
-            roleService.createRole(r1);
+            createdRole = roleService.createRole(r1);
 
         } catch(EntityAlreadyExistsException e){
-            roleService.findRole(r1.getName());
+            createdRole = roleService.findRole(r1.getName());
         }
 
         try {
@@ -85,10 +88,11 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         permissionService.setRoles(p1, newRoles);
         permissionService.setRoles(p2, newRoles);
 
+        String password = passwordEncoder.encode("adminpassword123");
 
 
 //      Seeding User
-        UserRequestDTO user = new UserRequestDTO("admin", "admin", "admin@gmail.com", "adminpassword123");
+        UserRequestDTO user = new UserRequestDTO("admin", "admin", "admin@gmail.com", password, createdRole);
         UserRequestDTO createdUser;
 
         try {
@@ -99,7 +103,7 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         }
 
 
-        userService.setUserRole(createdUser, r1.getName());
+//        userService.setUserRole(createdUser, r1.getName());
 
 
     }
