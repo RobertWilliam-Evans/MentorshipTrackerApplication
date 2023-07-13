@@ -93,17 +93,15 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
 //      Seeding User
         UserRequestDTO user = new UserRequestDTO("admin", "admin", "admin@gmail.com", password, createdRole);
-        UserRequestDTO createdUser;
 
         try {
-            createdUser = userService.createUser(user);
+            userService.createUser(user);
 
         } catch(EntityAlreadyExistsException e){
-            createdUser = userService.findUserByEmail(user.getEmail());
+            userService.findUserByEmail(user.getEmail());
         }
 
 
-//        userService.setUserRole(createdUser, r1.getName());
 
 
     }
