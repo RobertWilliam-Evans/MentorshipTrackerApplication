@@ -15,49 +15,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class AuthenticationService {
 
-    private final UserRepository userRepository;
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final ObjectMapper objectMapper;
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
-    public AuthenticationResponse register(UserRequestDTO request) {
 
-        if(userRepository.existsUserByEmail(request.getEmail())){
-            throw new EntityAlreadyExistsException("User Already Exists");
+public interface AuthenticationService {
 
-        }
 
-        request.setPassword(passwordEncoder.encode(request.getPassword()));
-        User convertedUser = objectMapper.convertValue(request, User.class);
-        userRepository.save(convertedUser);
-        var jwtToken = jwtService.generateToken(request);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
-    }
+    AuthenticationResponse register(UserRequestDTO request);
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        try{
-            var user = userService.findUserByEmail(request.getEmail());
-            var jwtToken = jwtService.generateToken(user);
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .build();
-        }catch (EntityDoesNotExistException e){
-            throw new EntityDoesNotExistException("User Does Not Exist");
-
-        }
-
-    }
+    AuthenticationResponse authenticate(AuthenticationRequest request);
 }
