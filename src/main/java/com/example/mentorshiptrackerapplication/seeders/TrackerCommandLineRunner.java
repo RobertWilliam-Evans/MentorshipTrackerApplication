@@ -28,8 +28,6 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
     private final PasswordEncoder passwordEncoder;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
 
     @Override
     public void run(String... args) throws Exception{
