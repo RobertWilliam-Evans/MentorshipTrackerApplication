@@ -1,7 +1,7 @@
 package com.example.mentorshiptrackerapplication.controllers.auth;
 
 
-import com.example.mentorshiptrackerapplication.controllers.RegisterRequest;
+import com.example.mentorshiptrackerapplication.dto.AuthenticationRequest;
 import com.example.mentorshiptrackerapplication.dto.AuthenticationResponse;
 import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.services.auth.AuthenticationService;

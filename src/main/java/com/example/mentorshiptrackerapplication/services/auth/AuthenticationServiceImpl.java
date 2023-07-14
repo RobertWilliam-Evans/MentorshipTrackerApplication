@@ -1,6 +1,6 @@
 package com.example.mentorshiptrackerapplication.services.auth;
 
-import com.example.mentorshiptrackerapplication.controllers.auth.AuthenticationRequest;
+import com.example.mentorshiptrackerapplication.dto.AuthenticationRequest;
 import com.example.mentorshiptrackerapplication.dto.AuthenticationResponse;
 import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
