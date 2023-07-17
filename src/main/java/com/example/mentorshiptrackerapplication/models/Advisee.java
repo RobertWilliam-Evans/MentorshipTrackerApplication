@@ -1,5 +1,6 @@
 package com.example.mentorshiptrackerapplication.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,5 +30,6 @@ public class Advisee extends User {
 
     @ManyToOne
     @JoinColumn(name = "advisor_id")
+    @JsonBackReference
     private Advisor advisor;
 }

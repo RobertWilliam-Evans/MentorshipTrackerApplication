@@ -4,6 +4,7 @@ package com.example.mentorshiptrackerapplication.controllers;
 
 import com.example.mentorshiptrackerapplication.dto.AuthenticationRequest;
 import com.example.mentorshiptrackerapplication.dto.AuthenticationResponse;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.AdvisorDTO;
 import com.example.mentorshiptrackerapplication.dto.userDTOs.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.services.auth.AuthenticationService;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/v1/auth/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<AuthenticationResponse> register(@Valid
             @RequestBody UserRequestDTO request
     ){
         return ResponseEntity.ok(service.register(request));
@@ -32,4 +33,9 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate( @Valid
             @RequestBody AuthenticationRequest request
     ){return ResponseEntity.ok(service.authenticate(request));}
+
+    @PostMapping("/v1/auth/advisor/register")
+    public ResponseEntity<AuthenticationResponse> registerAdvisor( @Valid
+            @RequestBody AdvisorDTO request
+    ){return ResponseEntity.ok(service.registerAdvisor(request));}
 }

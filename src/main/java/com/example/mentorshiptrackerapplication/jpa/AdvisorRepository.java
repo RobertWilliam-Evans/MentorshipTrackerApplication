@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdvisorRepository extends JpaRepository<Advisor, Integer> {
 
-    Advisee findAdvisorByEmail(String email);
+    Advisor findAdvisorByEmail(String email);
 }

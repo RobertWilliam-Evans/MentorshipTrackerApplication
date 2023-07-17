@@ -1,10 +1,8 @@
 package com.example.mentorshiptrackerapplication.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -26,7 +24,13 @@ public class Advisor extends User{
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @OneToMany(mappedBy = "advisor")
+    @OneToMany(mappedBy = "advisor",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Advisee> adviseeList;
 
 }

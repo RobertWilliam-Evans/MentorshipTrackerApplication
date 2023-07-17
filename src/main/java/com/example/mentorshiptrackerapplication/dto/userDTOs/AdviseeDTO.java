@@ -24,5 +24,7 @@ public class AdviseeDTO extends UserRequestDTO {
     @NotNull(message ="This field is required")
     private String city;
 
-    private Advisor advisor;
+    @NotNull(message ="This field is required")
+    private String advisorEmail;
+
 }

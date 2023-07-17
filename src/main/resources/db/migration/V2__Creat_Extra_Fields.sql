@@ -14,7 +14,7 @@ create table ADVISEE(
         birth_date DATE,
         advisor_id  UUID REFERENCES ADVISOR (user_id),
         FOREIGN KEY (user_id) REFERENCES USER_DETAILS (id),
-        FOREIGN KEY (user_id) REFERENCES ADVISOR (user_id)
+        FOREIGN KEY (advisor_id) REFERENCES ADVISOR (user_id)
 
 );
 
