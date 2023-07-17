@@ -1,10 +1,12 @@
-package com.example.mentorshiptrackerapplication.controllers.auth;
+package com.example.mentorshiptrackerapplication.controllers;
+
 
 
 import com.example.mentorshiptrackerapplication.dto.AuthenticationRequest;
 import com.example.mentorshiptrackerapplication.dto.AuthenticationResponse;
-import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.services.auth.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/v1/auth/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    public ResponseEntity<AuthenticationResponse> authenticate( @Valid
             @RequestBody AuthenticationRequest request
     ){return ResponseEntity.ok(service.authenticate(request));}
 }

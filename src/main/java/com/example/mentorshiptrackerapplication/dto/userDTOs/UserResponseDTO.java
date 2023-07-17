@@ -1,5 +1,6 @@
-package com.example.mentorshiptrackerapplication.dto;
+package com.example.mentorshiptrackerapplication.dto.userDTOs;
 
+import com.example.mentorshiptrackerapplication.dto.RoleDTO;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

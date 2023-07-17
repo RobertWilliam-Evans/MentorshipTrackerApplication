@@ -25,8 +25,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/**")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/auth/**", "/swagger-ui/**", "v3/api-docs/**")
                         .permitAll()
+                        .requestMatchers("api/v1/role", "api/v1/permission", "api/v1/admin", "api/v1/advisor").hasAnyAuthority("Administrator")
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

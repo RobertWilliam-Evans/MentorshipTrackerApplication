@@ -1,6 +1,6 @@
 package com.example.mentorshiptrackerapplication.services.auth;
 
-import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.UserRequestDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

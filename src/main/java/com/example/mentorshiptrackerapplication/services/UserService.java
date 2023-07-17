@@ -1,11 +1,11 @@
 package com.example.mentorshiptrackerapplication.services;
 
-import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
-import com.example.mentorshiptrackerapplication.dto.UserResponseDTO;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.UserRequestDTO;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.UserResponseDTO;
 
 public interface UserService {
-    UserRequestDTO createUser(UserRequestDTO user);
-    UserRequestDTO setUserRole(UserRequestDTO user, String roleName);
+    UserResponseDTO createUser(UserRequestDTO user);
+    UserResponseDTO setUserRole(UserResponseDTO user, String roleName);
 
     UserResponseDTO createAdmin(UserRequestDTO user);
 

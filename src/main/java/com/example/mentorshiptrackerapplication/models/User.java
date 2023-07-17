@@ -9,17 +9,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import static com.example.mentorshiptrackerapplication.constants.Constants.DEFAULT_ROLE;
 
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name ="user_details")
 public class User implements UserDetails {
 
@@ -28,16 +29,10 @@ public class User implements UserDetails {
     private UUID id;
 
     @Column(name ="firstname")
-    @Pattern(regexp = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$")
     private String firstName;
     @Column(name ="username")
-    @Pattern(regexp = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9])" +
-            "{3,18}[a-zA-Z0-9]$")
     private String userName;
     @Column(name ="email")
-    @Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*" +
-            "@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)" +
-            "*(\\\\.[A-Za-z]{2,})$")
     private String email;
     @Column(name ="password")
     private String password;
@@ -52,8 +47,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return List.of(new SimpleGrantedAuthority(role.getName()== null ? DEFAULT_ROLE : role.getName()));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
     }
 
     public String getPassword() {

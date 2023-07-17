@@ -1,5 +1,6 @@
-package com.example.mentorshiptrackerapplication.dto;
+package com.example.mentorshiptrackerapplication.dto.userDTOs;
 
+import com.example.mentorshiptrackerapplication.dto.RoleDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -21,17 +22,15 @@ public class UserRequestDTO {
     @NotNull(message = "field is required")
     private String firstName;
 
-    @Size(min = 2, message ="Username should have at least 2 characters")
-    @NotNull(message = "field is required")
+//    @Size(min = 2, message ="Username should have at least 2 characters")
+//    @NotNull(message = "field is required")
     private String userName;
 
-    @Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*" +
-            "@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)" +
-            "*(\\\\.[A-Za-z]{2,})$")
+    @Pattern(regexp = "^(.+)@(.+)$")
     @NotBlank(message = "field is required")
     private String email;
 
-    @NotNull(message ="This field is required")
+    @NotBlank(message ="This field is required")
     private String password;
     private RoleDTO role;
 

@@ -2,7 +2,7 @@ package com.example.mentorshiptrackerapplication.services.auth;
 
 import com.example.mentorshiptrackerapplication.dto.AuthenticationRequest;
 import com.example.mentorshiptrackerapplication.dto.AuthenticationResponse;
-import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
 import com.example.mentorshiptrackerapplication.exceptions.EntityDoesNotExistException;
 import com.example.mentorshiptrackerapplication.jpa.UserRepository;
