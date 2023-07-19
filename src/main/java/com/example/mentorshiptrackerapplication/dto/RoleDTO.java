@@ -18,8 +18,6 @@ public class RoleDTO {
     private UUID id;
 
     @NotBlank(message = "field is required")
-    @NotEmpty
-    @NotNull
     private String name;
 
     @NotBlank(message = "field is required")

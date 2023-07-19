@@ -29,7 +29,7 @@ public class RoleServiceImpl implements RoleService{
         Role convertedRole = objectMapper.convertValue(role, Role.class);
         if(roleRepository.existsRoleByNameIgnoreCase(role.getName())){
 
-            throw new EntityAlreadyExistsException("Role Does Not Exist");
+            throw new EntityAlreadyExistsException("Role Already Exists");
         }
         Role role1 = roleRepository.save(convertedRole);
         return objectMapper.convertValue(role1, RoleDTO.class);

@@ -1,5 +1,6 @@
-package com.example.mentorshiptrackerapplication.dto;
+package com.example.mentorshiptrackerapplication.dto.userDTOs;
 
+import com.example.mentorshiptrackerapplication.dto.RoleDTO;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -15,12 +16,8 @@ public class UserResponseDTO {
 
     private UUID id;
     private String firstName;
-
     private String userName;
-
-
     private String email;
-
     private RoleDTO role;
 
 

@@ -17,9 +17,6 @@ public class Role {
     private UUID id;
 
     @Column(name="name")
-    @NotBlank(message = "field is required")
-    @NotEmpty
-    @NotNull
     private String name;
     @Column(name="description")
     private String description;

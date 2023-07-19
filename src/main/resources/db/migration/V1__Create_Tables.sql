@@ -20,11 +20,11 @@ create table ROLE_PERMISSION(
 );
 
 create table USER_DETAILS(
-                             id UUID PRIMARY KEY NOT NULL,
-                             username VARCHAR(255) NOT NULL,
-                             firstname VARCHAR(255) NOT NULL,
-                             email VARCHAR(255) NOT NULL,
-                             role_id UUID,
-                             password VARCHAR(255) NOT NULL,
-                             FOREIGN KEY (role_id) REFERENCES ROLE (id)
+         id UUID PRIMARY KEY NOT NULL,
+         username VARCHAR(255) NOT NULL,
+         firstname VARCHAR(255) NOT NULL,
+         email VARCHAR(255) NOT NULL,
+         role_id UUID,
+         password VARCHAR(255) NOT NULL,
+         FOREIGN KEY (role_id) REFERENCES ROLE (id)
 )

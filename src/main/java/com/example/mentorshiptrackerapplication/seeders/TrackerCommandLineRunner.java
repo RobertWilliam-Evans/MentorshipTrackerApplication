@@ -3,12 +3,12 @@ package com.example.mentorshiptrackerapplication.seeders;
 
 import com.example.mentorshiptrackerapplication.dto.PermissionDTO;
 import com.example.mentorshiptrackerapplication.dto.RoleDTO;
-import com.example.mentorshiptrackerapplication.dto.UserRequestDTO;
+import com.example.mentorshiptrackerapplication.dto.userDTOs.UserRequestDTO;
 import com.example.mentorshiptrackerapplication.exceptions.EntityAlreadyExistsException;
 import com.example.mentorshiptrackerapplication.services.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -25,11 +25,13 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
     private final UserService userService;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public void run(String... args) throws Exception{
+
+        String savedPassword = System.getenv("ADMIN_PASSWORD");
 
 //       Creating permissions using the permission service
         PermissionDTO p1 = new PermissionDTO("Manage Mentorship", "Create, view, update and delete on mentorship");
@@ -54,12 +56,13 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 //      Creating roles using the role service
         RoleDTO r1 = new RoleDTO("Administrator", "Perform all Actions");
         RoleDTO r2 = new RoleDTO("Mentorship manager", "Perform mentorship associated CRUD actions");
-
+        RoleDTO r3  = new RoleDTO("Default role", "Default description");
+        RoleDTO createdRole;
         try {
-            roleService.createRole(r1);
+            createdRole = roleService.createRole(r1);
 
         } catch(EntityAlreadyExistsException e){
-            roleService.findRole(r1.getName());
+            createdRole = roleService.findRole(r1.getName());
         }
 
         try {
@@ -67,6 +70,12 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
 
         } catch(EntityAlreadyExistsException e){
             roleService.findRole(r2.getName());
+        }
+        try {
+            roleService.createRole(r3);
+
+        } catch(EntityAlreadyExistsException e){
+            roleService.findRole(r3.getName());
         }
 
 
@@ -85,22 +94,17 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         permissionService.setRoles(p1, newRoles);
         permissionService.setRoles(p2, newRoles);
 
+        String password = passwordEncoder.encode(savedPassword);
 
 
 //      Seeding User
-        UserRequestDTO user = new UserRequestDTO("admin", "admin", "admin@gmail.com", "adminpassword123");
-        UserRequestDTO createdUser;
-
+        UserRequestDTO user = new UserRequestDTO("admin", "admin", "admin@gmail.com", password, createdRole);
         try {
-            createdUser = userService.createUser(user);
+            userService.createAdmin(user);
 
         } catch(EntityAlreadyExistsException e){
-            createdUser = userService.findUserByEmail(user.getEmail());
+            userService.findUserByEmail(user.getEmail());
         }
-
-
-        userService.setUserRole(createdUser, r1.getName());
-
 
     }
 }
