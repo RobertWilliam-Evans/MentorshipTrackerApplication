@@ -94,7 +94,7 @@ public class TrackerCommandLineRunner implements CommandLineRunner {
         permissionService.setRoles(p1, newRoles);
         permissionService.setRoles(p2, newRoles);
 
-        String password = passwordEncoder.encode(savedPassword);
+        String password = passwordEncoder.encode("adminpassword123");
 
 
 //      Seeding User
