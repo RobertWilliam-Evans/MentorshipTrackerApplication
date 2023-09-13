@@ -21,9 +21,9 @@ configurations {
 }
 
 flyway {
-	url = project.properties["db_url"]
-	user = project.properties["db_username"]
-	password = project.properties["db_password"]
+	url = "jdbc:postgresql://dpg-ck0rdi9fp0sc73dcfleg-a.oregon-postgres.render.com:5432/mentorship_tracker"
+	user = "mentorship_tracker_user"
+	password = "Cg2hpMMJo9UYFUPxtSuafipxExqOomGk"
 	schemas = ['Public']
 	locations = ['classpath:db/migration']
 	baselineOnMigrate = true
